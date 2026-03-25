@@ -1,0 +1,21 @@
+name: Build Android APK
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      
+    - name: Build with buildozer
+      uses: indygamberdy/buildozer-action@v1
+      with:
+        recipe: |
+          buildozer android debug
+          
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: douyin-downloader-apk
+        path: bin/*.apk
