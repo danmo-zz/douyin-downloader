@@ -17,7 +17,7 @@ jobs:
     - name: Install buildozer
       run: |
         sudo apt update
-        sudo apt install -y python3-pip python3-setuptools openjdk-17-jdk git
+        sudo apt install -y python3-pip python3-setuptools openjdk-17-jdk git libltdl-dev autoconf automake libtool autopoint pkg-config
         pip3 install --upgrade pip
         pip3 install buildozer cython
 
