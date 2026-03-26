@@ -8,25 +8,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
+    - name: Build with Buildozer
+      uses: rpi-pkgs/buildozer-action@v2
       with:
-        java-version: '17'
-        distribution: 'corretto'
-
-    - name: Install buildozer
-      run: |
-        sudo apt update
-        sudo apt install -y python3-pip python3-setuptools openjdk-17-jdk git libltdl-dev autoconf automake libtool autopoint pkg-config
-        pip3 install --upgrade pip
-        pip3 install buildozer cython
-
-    - name: Build with buildozer
-      run: |
-        buildozer android debug
-
-    - name: Upload APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: douyin-downloader-apk
-        path: bin/*.apk
+        recipe-dir: .buildozer-remote-packages/packages
+        create-release: false
+        upload-artifact: true
