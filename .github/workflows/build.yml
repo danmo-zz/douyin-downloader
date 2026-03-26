@@ -8,14 +8,22 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Build with Buildozer
-      uses: 'insanum/setup-buildozer@master'
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
       with:
-        python-version: '3.11'
+        java-version: '17'
+        distribution: 'corretto'
+
+    - name: Install buildozer
+      run: |
+        sudo apt update
+        sudo apt install -y python3-pip python3-setuptools openjdk-17-jdk git libltdl-dev autoconf automake libtool autopoint pkg-config
+        pip3 install --upgrade pip
+        pip install cython==0.29.37
+        pip3 install buildozer
 
     - name: Build with buildozer
       run: |
-        pip install cython==0.29.37
         buildozer android debug
 
     - name: Upload APK
