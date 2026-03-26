@@ -9,8 +9,17 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Build with Buildozer
-      uses: rpi-pkgs/buildozer-action@v2
+      uses: 'insanum/setup-buildozer@master'
       with:
-        recipe-dir: .buildozer-remote-packages/packages
-        create-release: false
-        upload-artifact: true
+        python-version: '3.11'
+
+    - name: Build with buildozer
+      run: |
+        pip install cython==0.29.37
+        buildozer android debug
+
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: douyin-downloader-apk
+        path: bin/*.apk
